@@ -1,0 +1,22 @@
+﻿{
+	"benhnhan": [
+		{
+			"mabn": "2016052937",
+			"hoten": "Hồ Thanh Tạo",
+			"ngaysinh": "1957-12-19",
+			"gioitinh": "Nam",
+			"cmnd": "",
+			"diachi": "8A/12 , KV7, P. Bình Thủy, Q. Bình Thủy, TPCT",
+			"maxa": "9291831168"
+		},
+		{
+			"mabn": "2016055009",
+			"hoten": "Nguyễn Thị Nhơn Ái",
+			"ngaysinh": "1949-02-14",
+			"gioitinh": "Nữ ",
+			"cmnd": "",
+			"diachi": "Thị Tứ, TT Phong Điền , H.Phong Điền, TPCT",
+			"maxa": "9292631299"
+		}
+	]
+}
