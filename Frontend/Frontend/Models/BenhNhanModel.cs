@@ -23,6 +23,7 @@
 		// on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
 		public virtual DbSet<Benhnhan> BenhNhans { get; set; }
+		public virtual DbSet<Root> Roots { get; set; }
 	}
 
 	public class Benhnhan
@@ -42,10 +43,14 @@
 		public string diachi { get; set; }
 		[Display(Name = "Mã xã")]
 		public string maxa { get; set; }
+		[Display(Name = "Bệnh án")]
+		public string ba { get; set; }
 	}
 
 	public class Root
 	{
+		public string Key { get; set; }
+		public Benhnhan Record { get; set; }
 		public List<Benhnhan> benhnhan { get; set; }
 	}
 }

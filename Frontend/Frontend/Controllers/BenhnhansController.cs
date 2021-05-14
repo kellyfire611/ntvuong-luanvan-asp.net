@@ -23,10 +23,10 @@ namespace Frontend.Controllers
             // Đọc từ file JSON
             string dataFilePath = Server.MapPath("~/App_Data/DanhSachBenhNhan.json");
             JObject joRoot = JObject.Parse(System.IO.File.ReadAllText(dataFilePath));
-            if(joRoot != null)
+            if (joRoot != null)
             {
                 JArray jaBenhNhan = joRoot["benhnhan"] as JArray;
-                if(jaBenhNhan != null)
+                if (jaBenhNhan != null)
                 {
                     List<Benhnhan> lstBenhNhan = new List<Benhnhan>();
                     foreach (JObject joBenhNhan in jaBenhNhan)
@@ -43,6 +43,31 @@ namespace Frontend.Controllers
                     return View(lstBenhNhan);
                 }
             }
+
+            // Đọc từ file JSON
+            //TODO: update to new schema KEY, RECORD (not finish)
+            //string dataFilePath = Server.MapPath("~/App_Data/danhsach.json");
+            //JArray jaRoot = JArray.Parse(System.IO.File.ReadAllText(dataFilePath));
+            //if(jaRoot != null)
+            //{
+            //    JArray jaBenhNhan = joRoot["benhnhan"] as JArray;
+            //    if(jaBenhNhan != null)
+            //    {
+            //        List<Benhnhan> lstBenhNhan = new List<Benhnhan>();
+            //        foreach (JObject joBenhNhan in jaBenhNhan)
+            //        {
+            //            Benhnhan bn = new Benhnhan();
+            //            bn.mabn = joBenhNhan.GetValue("mabn").ToString();
+            //            bn.hoten = joBenhNhan.GetValue("hoten").ToString();
+            //            bn.ngaysinh = joBenhNhan.GetValue("ngaysinh").ToString();
+            //            bn.gioitinh = joBenhNhan.GetValue("gioitinh").ToString();
+            //            bn.diachi = joBenhNhan.GetValue("diachi").ToString();
+            //            bn.maxa = joBenhNhan.GetValue("maxa").ToString();
+            //            lstBenhNhan.Add(bn);
+            //        }
+            //        return View(lstBenhNhan);
+            //    }
+            //}
 
             return View(db.BenhNhans.ToList());
         }
