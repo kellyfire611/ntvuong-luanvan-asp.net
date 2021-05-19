@@ -1,74 +1,165 @@
 ﻿@model Frontend.Models.Benhnhan
 
+
 @{
-    ViewBag.Title = "Details";
+	ViewBag.Title = "Details";
+	var ctba = ViewBag.ChiTietBenhAn as Frontend.Models.ChiTietBenhAn;
 }
 
 <h2>Details</h2>
 
 <div>
-    <h4>Benhnhan</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.mabn)
-        </dt>
+	<h4>Thông tin Bệnh nhân</h4>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.mabn)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.mabn)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.mabn)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.hoten)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.hoten)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.hoten)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.hoten)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ngaysinh)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.ngaysinh)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ngaysinh)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.ngaysinh)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.gioitinh)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.gioitinh)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.gioitinh)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.gioitinh)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.cmnd)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.cmnd)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.cmnd)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.cmnd)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.diachi)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.diachi)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.diachi)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.diachi)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.maxa)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.maxa)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.maxa)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.maxa)
+		</dd>
 
-    </dl>
+	</dl>
+
+	@if (ViewBag.ChiTietBenhAn != null)
+	{
+		<h4>Thông tin Bệnh Án</h4>
+		foreach (var ba in ctba.benhan)
+		{
+			<ul>
+				<li>Mã bệnh nhân: @ba.mabn</li>
+				<li>Mã bệnh án: @ba.maba</li>
+				<li>Mã bệnh nhân: @ba.makb</li>
+				<li>Mã bệnh nhân: @ba.hoten</li>
+				<li>Mã bệnh nhân: @ba.ngaysinh</li>
+				<li>Mã bệnh nhân: @ba.gioitinh</li>
+				<li>Mã bệnh nhân: @ba.cmnd</li>
+				<li>Mã bệnh nhân: @ba.diachi</li>
+				<li>Mã bệnh nhân: @ba.maxa</li>
+				<li>Mã bệnh nhân: @ba.ngayvv</li>
+				<li>Mã bệnh nhân: @ba.ngayrv</li>
+				<li>Mã bệnh nhân: @ba.maicd</li>
+				<li>Mã bệnh nhân: @ba.kqcdoan</li>
+				<li>Mã bệnh nhân: @ba.maicdp</li>
+				<li>Mã bệnh nhân: @ba.kqcdoanp</li>
+				<li>Mã bệnh nhân: @ba.lydovv</li>
+			</ul>
+
+			<h5>Quá trình điều trị</h5>
+			foreach (var qtdt in ba.quatrinhdt)
+			{
+				<ul>
+					<li>Id diễn biến: @qtdt.iddienbien</li>
+					<li>Id diễn biến: @qtdt.mach</li>
+					<li>Id diễn biến: @qtdt.nhietdo</li>
+					<li>Id diễn biến: @qtdt.huyetap</li>
+					<li>Id diễn biến: @qtdt.cannang</li>
+					<li>Id diễn biến: @qtdt.nhiptho</li>
+					<li>Id diễn biến: @qtdt.ngaykcb</li>
+					<li>Id diễn biến: @qtdt.manv</li>
+					<li>Id diễn biến: @qtdt.bacsi</li>
+					<li>Id diễn biến: @qtdt.maicd</li>
+					<li>Id diễn biến: @qtdt.kqcdoan</li>
+					<li>Id diễn biến: @qtdt.maicdp</li>
+					<li>Id diễn biến: @qtdt.kqcdoanp</li>
+					<li>Id diễn biến: @qtdt.lydo</li>
+					<li>Id diễn biến: @qtdt.dienbien</li>
+					<li>Id diễn biến: @qtdt.chamsoc</li>
+				</ul>
+			}
+
+			<h5>Thuốc</h5>
+			foreach (var t in ba.thuoc)
+			{
+				<ul>
+					<li>Mã hoạt chất: @t.mahh</li>
+					<li>Mã hoạt chất: @t.tenthuoc</li>
+					<li>Mã hoạt chất: @t.dvt</li>
+					<li>Mã hoạt chất: @t.soluong</li>
+					<li>Mã hoạt chất: @t.cachuong</li>
+					<li>Mã hoạt chất: @t.ngaykcb</li>
+					<li>Mã hoạt chất: @t.manv</li>
+					<li>Mã hoạt chất: @t.bacsi</li>
+					<li>Mã hoạt chất: @t.maicd</li>
+					<li>Mã hoạt chất: @t.kqcdoan</li>
+					<li>Mã hoạt chất: @t.maicdp</li>
+					<li>Mã hoạt chất: @t.kqcdoanp</li>
+					<li>Mã hoạt chất: @t.iddienbien</li>
+				</ul>
+			}
+
+			<h5>Cận lâm sàng</h5>
+			foreach (var c in ba.cls)
+			{
+				<ul>
+					<li>Mã CLS: @c.macls</li>
+					<li>Mã CLS: @c.tencls</li>
+					<li>Mã CLS: @c.dvt</li>
+					<li>Mã CLS: @c.soluong</li>
+					<li>Mã CLS: @c.ngaykcb</li>
+					<li>Mã CLS: @c.manv</li>
+					<li>Mã CLS: @c.bacsi</li>
+					<li>Mã CLS: @c.maicd</li>
+					<li>Mã CLS: @c.kqcdoan</li>
+					<li>Mã CLS: @c.maicdp</li>
+					<li>Mã CLS: @c.kqcdoanp</li>
+					<li>Mã CLS: @c.ketqua</li>
+					<li>Mã CLS: @c.trisobt</li>
+				</ul>
+			}
+		}
+	}
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+	@Html.ActionLink("Sửa", "Edit", new { mabn = Model.mabn }) |
+	@Html.ActionLink("Quay về Danh sách", "Index")
 </p>

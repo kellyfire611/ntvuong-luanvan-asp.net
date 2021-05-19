@@ -160,9 +160,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="App_Data\DanhSachBenhNhan.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="App_Data\danhsach.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

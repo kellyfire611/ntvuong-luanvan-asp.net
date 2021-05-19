@@ -59,8 +59,9 @@
             @Html.DisplayFor(modelItem => item.maxa)
         </td>
         <td>
-            @Html.ActionLink("Sửa", "Edit", new { id=item.mabn }) |
-            @Html.ActionLink("Xóa", "Delete", new { id=item.mabn })
+            @Html.ActionLink("Sửa", "Edit", new { mabn = item.mabn }) |
+            @Html.ActionLink("Xóa", "Delete", new { mabn = item.mabn }) |
+            @Html.ActionLink("Chi tiết", "Details", new { mabn = item.mabn })
         </td>
     </tr>
 }

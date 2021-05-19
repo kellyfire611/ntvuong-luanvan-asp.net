@@ -21,54 +21,49 @@ namespace Frontend.Controllers
         public ActionResult Index()
         {
             // Đọc từ file JSON
-            string dataFilePath = Server.MapPath("~/App_Data/DanhSachBenhNhan.json");
-            JObject joRoot = JObject.Parse(System.IO.File.ReadAllText(dataFilePath));
-            if (joRoot != null)
+            //TODO: update to new schema KEY, RECORD (not finish)
+            string dataFilePath = Server.MapPath("~/App_Data/danhsach.json");
+            JArray jaRoot = JArray.Parse(System.IO.File.ReadAllText(dataFilePath));
+            if (jaRoot != null)
             {
-                JArray jaBenhNhan = joRoot["benhnhan"] as JArray;
-                if (jaBenhNhan != null)
+                List<Benhnhan> lstBenhNhan = new List<Benhnhan>();
+                foreach (JObject joBenhNhan in jaRoot)
                 {
-                    List<Benhnhan> lstBenhNhan = new List<Benhnhan>();
-                    foreach (JObject joBenhNhan in jaBenhNhan)
+                    string key = joBenhNhan["Key"].Value<string>();
+                    JObject joRecord = joBenhNhan["Record"] as JObject;
+                    if(joRecord != null)
                     {
                         Benhnhan bn = new Benhnhan();
-                        bn.mabn = joBenhNhan.GetValue("mabn").ToString();
-                        bn.hoten = joBenhNhan.GetValue("hoten").ToString();
-                        bn.ngaysinh = joBenhNhan.GetValue("ngaysinh").ToString();
-                        bn.gioitinh = joBenhNhan.GetValue("gioitinh").ToString();
-                        bn.diachi = joBenhNhan.GetValue("diachi").ToString();
-                        bn.maxa = joBenhNhan.GetValue("maxa").ToString();
-                        lstBenhNhan.Add(bn);
+                        bn.mabn = joRecord.GetValue("mabn").ToString();
+                        bn.hoten = joRecord.GetValue("hoten").ToString();
+                        bn.ngaysinh = joRecord.GetValue("ngaysinh").ToString();
+                        bn.gioitinh = joRecord.GetValue("gioitinh").ToString();
+                        bn.diachi = joRecord.GetValue("diachi").ToString();
+                        bn.maxa = joRecord.GetValue("maxa").ToString();
+                        bn.cmnd = joRecord.GetValue("cmnd").ToString();
+                        bn.ba = joRecord.GetValue("ba").ToString();
+
+                        // Insert or Update to database
+                        Benhnhan bnInDatabase = db.BenhNhans.Find(bn.mabn);
+                        if(bnInDatabase == null)
+                        {
+                            db.BenhNhans.Add(bn);
+                        } else
+                        {
+                            bnInDatabase.mabn = bn.mabn;
+                            bnInDatabase.hoten = bn.hoten;
+                            bnInDatabase.ngaysinh = bn.ngaysinh;
+                            bnInDatabase.gioitinh = bn.gioitinh;
+                            bnInDatabase.diachi = bn.diachi;
+                            bnInDatabase.maxa = bn.maxa;
+                            bnInDatabase.cmnd = bn.cmnd;
+                            bnInDatabase.ba = bn.ba;
+                        }
                     }
-                    return View(lstBenhNhan);
                 }
             }
 
-            // Đọc từ file JSON
-            //TODO: update to new schema KEY, RECORD (not finish)
-            //string dataFilePath = Server.MapPath("~/App_Data/danhsach.json");
-            //JArray jaRoot = JArray.Parse(System.IO.File.ReadAllText(dataFilePath));
-            //if(jaRoot != null)
-            //{
-            //    JArray jaBenhNhan = joRoot["benhnhan"] as JArray;
-            //    if(jaBenhNhan != null)
-            //    {
-            //        List<Benhnhan> lstBenhNhan = new List<Benhnhan>();
-            //        foreach (JObject joBenhNhan in jaBenhNhan)
-            //        {
-            //            Benhnhan bn = new Benhnhan();
-            //            bn.mabn = joBenhNhan.GetValue("mabn").ToString();
-            //            bn.hoten = joBenhNhan.GetValue("hoten").ToString();
-            //            bn.ngaysinh = joBenhNhan.GetValue("ngaysinh").ToString();
-            //            bn.gioitinh = joBenhNhan.GetValue("gioitinh").ToString();
-            //            bn.diachi = joBenhNhan.GetValue("diachi").ToString();
-            //            bn.maxa = joBenhNhan.GetValue("maxa").ToString();
-            //            lstBenhNhan.Add(bn);
-            //        }
-            //        return View(lstBenhNhan);
-            //    }
-            //}
-
+            db.SaveChanges();
             return View(db.BenhNhans.ToList());
         }
 
@@ -83,6 +78,14 @@ namespace Frontend.Controllers
             if (benhnhan == null)
             {
                 return HttpNotFound();
+            }
+
+            ChiTietBenhAn chitietBenhAn = null;
+            if (!String.IsNullOrEmpty(benhnhan.ba))
+            {
+                string baDecode = Base64Decode(benhnhan.ba);
+                chitietBenhAn = JsonConvert.DeserializeObject<ChiTietBenhAn>(baDecode);
+                ViewBag.ChiTietBenhAn = chitietBenhAn;
             }
             return View(benhnhan);
         }
@@ -174,6 +177,18 @@ namespace Frontend.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+
+        public string Base64Decode(string base64EncodedData)
+        {
+            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
     }
 }
